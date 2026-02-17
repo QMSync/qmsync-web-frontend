@@ -105,7 +105,7 @@ export default function Home() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
       <div className="bg-white p-8 rounded-lg shadow-md w-96">
-        <h1 className="text-2xl font-bold text-gray-900 mb-6 text-center" style={{fontFamily: 'Inter, sans-serif'}}>QMSync</h1>
+        <h1 className="text-2xl font-bold text-gray-900 mb-6 text-center" style={{fontFamily: 'Inter, sans-serif'}}>QMSync Login</h1>
         
         {error && <div className="mb-4 p-2 bg-red-50 border border-red-200 rounded text-sm text-red-700">{error}</div>}
         
