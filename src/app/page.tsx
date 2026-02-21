@@ -3,6 +3,8 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL
+
 export default function Home() {
   const router = useRouter()
   const [step, setStep] = useState<'login' | 'change-password' | 'verify-email'>('login')
@@ -14,7 +16,7 @@ export default function Home() {
     setError('')
     
     try {
-      const response = await fetch('http://localhost:8000/api/adminapp/login/', {
+      const response = await fetch(`${API_URL}/api/adminapp/login/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -27,7 +29,7 @@ export default function Home() {
         if (data.must_change_password) {
           setStep('change-password')
         } else if (!data.email_verified) {
-          await fetch('http://localhost:8000/api/adminapp/send-verification/', {
+          await fetch(`${API_URL}/api/adminapp/send-verification/`, {
             method: 'POST',
             credentials: 'include'
           })
@@ -53,7 +55,7 @@ export default function Home() {
     }
     
     try {
-      const response = await fetch('http://localhost:8000/api/adminapp/change-password/', {
+      const response = await fetch(`${API_URL}/api/adminapp/change-password/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -63,7 +65,7 @@ export default function Home() {
       const data = await response.json()
       
       if (data.success) {
-        await fetch('http://localhost:8000/api/adminapp/send-verification/', {
+        await fetch(`${API_URL}/api/adminapp/send-verification/`, {
           method: 'POST',
           credentials: 'include'
         })
@@ -79,7 +81,7 @@ export default function Home() {
     setError('')
     
     try {
-      const response = await fetch('http://localhost:8000/api/adminapp/verify-email/', {
+      const response = await fetch(`${API_URL}/api/adminapp/verify-email/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -89,7 +91,7 @@ export default function Home() {
       const data = await response.json()
       
       if (data.success) {
-        const authResponse = await fetch('http://localhost:8000/api/adminapp/check-auth/', {
+        const authResponse = await fetch(`${API_URL}/api/adminapp/check-auth/`, {
           credentials: 'include'
         })
         const authData = await authResponse.json()
