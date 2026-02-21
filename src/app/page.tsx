@@ -1,7 +1,8 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import { wakeBackend } from '@/lib/wakeBackend'
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL
 
@@ -10,6 +11,10 @@ export default function Home() {
   const [step, setStep] = useState<'login' | 'change-password' | 'verify-email'>('login')
   const [formData, setFormData] = useState({ username: '', password: '', new_password: '', confirm_password: '', code: '' })
   const [error, setError] = useState('')
+
+  useEffect(() => {
+    wakeBackend()
+  }, [])
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
