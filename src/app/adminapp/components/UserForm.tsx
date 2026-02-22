@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { API_URL } from '@/lib/api'
 
 interface UserFormProps {
   onClose: () => void
@@ -25,7 +26,7 @@ export default function UserForm({ onClose, onSuccess }: UserFormProps) {
     const fullTelephone = `${formData.country_code}${formData.telephone}`
     
     try {
-      const response = await fetch('http://localhost:8000/api/adminapp/users/', {
+      const response = await fetch(`${API_URL}/api/adminapp/users/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

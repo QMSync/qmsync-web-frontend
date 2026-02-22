@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import AdminLayout from './layouts/AdminLayout'
 import UserForm from './components/UserForm'
+import { API_URL } from '@/lib/api'
 
 interface User {
   id: number
@@ -21,7 +22,7 @@ export default function AdminApp() {
 
   const fetchUsers = async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/adminapp/users/')
+      const response = await fetch(`${API_URL}/api/adminapp/users/`)
       const data = await response.json()
       setUsers(data)
     } catch (error) {
@@ -41,7 +42,7 @@ export default function AdminApp() {
     if (!confirm('Are you sure you want to delete this user?')) return
     
     try {
-      await fetch(`http://localhost:8000/api/adminapp/users/${id}/`, { method: 'DELETE' })
+      await fetch(`${API_URL}/api/adminapp/users/${id}/`, { method: 'DELETE' })
       fetchUsers()
     } catch (error) {
       console.error('Error deleting user:', error)
